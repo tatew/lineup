@@ -5,7 +5,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 
-export class Calender extends Component {
+export class Calendar extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -14,7 +14,7 @@ export class Calender extends Component {
             events: [{
                 id: 'a',
                 title: 'my event',
-                start: '2020-10-20'
+                start: '2020-10-24T19:30Z'
             }],
         }
     }
@@ -30,7 +30,7 @@ export class Calender extends Component {
     render() {
 
         return (
-            <div style={{margin: '6em'}}>
+            <div style={{margin: '5%'}}>
                 <FullCalendar 
                     plugins={[ dayGridPlugin, timeGridPlugin ]}
                     initialView="dayGridMonth"
