@@ -10,6 +10,15 @@ services:
             - "traefik.http.routers.ui.rule=PathPrefix(`/`)"
             - "traefik.http.services.ui.loadbalancer.server.port=3000"
         stdin_open: true
+    api:
+        build:
+            context: LineupApi
+            target: base
+        volumes: 
+            - ./LineupApi:/app
+        labels:
+            - "traefik.http.routers.api.rule=PathPrefix(`/api/`)"
+            - "traefik.http.services.api.loadbalancer.server.port=5000"
     reverse-proxy:
         image: traefik:2.2
         command: --providers.docker --api.insecure=true
@@ -18,3 +27,11 @@ services:
             - "8080:8080"
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
+    db:
+        image: postgres:12.2
+        ports:
+            - "5432:5432"
+        environment:
+            - POSTGRES_DB=lineup
+            - POSTGRES_PASSWORD=wj3Kh2LG9n9pL
+            - POSTGRES_USER=lineup_user
