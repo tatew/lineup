@@ -23,7 +23,7 @@ async function getTeams()
     try {
         const response = await axios({
             method: 'GET',
-            url: 'http://localhost:9000/api/lineup/teams'
+            url: 'http://172.16.2.29:9000/api/lineup/teams'
         });
         return response.data;
     } catch (error) {

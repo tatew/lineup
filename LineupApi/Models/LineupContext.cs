@@ -9,5 +9,6 @@ namespace LineupApi.Models
         }
 
         public DbSet<Team> Teams {get; set;}
+        public DbSet<User> Users {get; set;}
     }
 }
