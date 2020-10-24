@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
+import {Topbar} from '../components/Topbar';
 
 export function PrivateRoute({ component: Component, isAuth: auth, ...rest }) {
     console.log(auth);
@@ -8,7 +9,10 @@ export function PrivateRoute({ component: Component, isAuth: auth, ...rest }) {
         {...rest}
         render={props =>
           auth ? (
-            <Component {...props} />
+            <React.Fragment>
+              <Topbar/>
+              <Component {...props} />
+            </React.Fragment>
           ) : (
             <Redirect
               to={{

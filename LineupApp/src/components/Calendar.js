@@ -11,20 +11,20 @@ export class Calendar extends Component {
         this.state = {
             teamName: "",
             logoUrl: "",
-            events: [{
-                id: 'a',
-                title: 'my event',
-                start: '2020-10-24T19:30Z'
-            }],
+            events: [],
         }
     }
 
     componentDidMount = async () => {
-        const scheduleData = await lineupService.getTeamSchedule("vt");
+        const team = {
+            abbreviation: "tb",
+            sport: "baseball/mlb"
+        }
+        const events = await lineupService.getEventsFromScheduleData(team);
+        console.log(events);
         this.setState({
-            teamName: scheduleData.team.displayName,
-            logoUrl: scheduleData.team.logo
-        });
+            events: events
+        })
     }
 
     render() {

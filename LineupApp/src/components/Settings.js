@@ -1,30 +1,42 @@
 import React, {Component} from 'react';
 import {lineupService} from '../services/LineupService';
-import {Dropdown} from 'primereact/dropdown';
+import { DataTable } from 'primereact/datatable';
+import {Column} from 'primereact/column';
 
 export class Settings extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            teams: [],
-            selectedTeam: {}
+            usersTeams: [],
+            loading: false
         };
     }
 
     componentDidMount = async () => {
-        var teams = await lineupService.getTeams();
         this.setState({
-            teams: teams
+            loading: true
+        })
+        var teams = await lineupService.getTeamsForUser();
+        this.setState({
+            usersTeams: teams,
+            loading: false
         });
-        console.log(teams);
     }
 
     render() {
+        const header = (
+            <div>
+                <p>My Teams</p>
+            </div>
+        );
         return(
             <div>
-                <h1>Settings</h1>
-                <Dropdown options={this.state.teams} optionLabel="name" value={this.state.selectedTeam} onChange={(e) => {this.setState({selectedTeam: e.value})}}/>
+                <h3>Settings</h3>
+                <DataTable value={this.state.usersTeams} style={{margin: "1em"}} header={header} loading={this.state.loading}>
+                    <Column field="name" header="Name"/>
+                    <Column field="city" header="City"/>
+                </DataTable>
             </div>
         );
     }

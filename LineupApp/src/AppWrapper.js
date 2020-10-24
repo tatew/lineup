@@ -3,9 +3,9 @@ import {withRouter, Switch, Route} from 'react-router-dom';
 import { Login } from './components/Login';
 import { Calendar } from './components/Calendar';
 import {Settings} from './components/Settings';
-import {Topbar} from './components/Topbar';
 import {authService} from './services/AuthService';
-import {PrivateRoute, privateRoute} from './Routes/PrivateRoute';
+import {PrivateRoute} from './routes/PrivateRoute';
+import 'primeflex/primeflex.css';
 
 class AppWrapper extends Component {
 
@@ -21,15 +21,12 @@ class AppWrapper extends Component {
         const isAuthorized = authService.isAuth();
         return (
             <div>
-            <Topbar/>
                 <Switch>
                     <PrivateRoute path="/settings" component={Settings} isAuth={isAuthorized}/>
                     <Route path="/login">
                         <Login/>
                     </Route>
-                    <Route path="/">
-                        <Calendar/>
-                    </Route>
+                    <PrivateRoute path="/" component={Calendar} isAuth={isAuthorized}/>
                 </Switch>
             </div>
         );
