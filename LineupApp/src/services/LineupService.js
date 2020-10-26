@@ -13,7 +13,7 @@ async function getTeamSchedule(team) {
     try {
         const response = await axios({
             method: 'GET',
-            url: config.espnApiUrl + team.sport +'/teams/' + team.abbreviation + '/schedule'
+            url: config.espnApiUrl + team.sportUrl +'/teams/' + team.abbreviation + '/schedule'
         });
         return response.data.events;
     } catch (error) {
@@ -67,7 +67,8 @@ async function getEventsFromScheduleData(team)
         const event = {
             id: e.id,
             title: e.shortName,
-            start: e.date
+            start: e.date,
+            fullName: e.name
         };
         return event;
     });
@@ -76,5 +77,10 @@ async function getEventsFromScheduleData(team)
 /*========================================================*/
 async function getEventsForUser() {
     const teams = await getTeamsForUser();
-
+    let events = [];
+    for (const team of teams) {
+        const teamEvents = await getEventsFromScheduleData(team);
+        events = events.concat(teamEvents);
+    }
+    return events;
 }

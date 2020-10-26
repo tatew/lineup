@@ -28,7 +28,7 @@ namespace LineupApi.Controllers
         [HttpGet("users/{id}/teams")]
         public IActionResult GetTeamsForUser(int id)
         {
-            var user = _context.Users.Include(u => u.UserTeams).ThenInclude(ut => ut.Team).FirstOrDefault(u => u.Id == id);
+            var user = _context.Users.Include(u => u.UserTeams).ThenInclude(ut => ut.Team).ThenInclude(t => t.Sport).FirstOrDefault(u => u.Id == id);
             var teams = new List<TeamDTO>();
             foreach (var userTeam in user.UserTeams)
             {
@@ -37,6 +37,8 @@ namespace LineupApi.Controllers
                 teamDto.Name = userTeam.Team.Name;
                 teamDto.Abbreviation = userTeam.Team.Abbreviation;
                 teamDto.City = userTeam.Team.City;
+                teamDto.SportUrl = userTeam.Team.Sport.Url;
+                teamDto.Sport = userTeam.Team.Sport.Name;
                 teams.Add(teamDto);
             }
             return Ok(teams);

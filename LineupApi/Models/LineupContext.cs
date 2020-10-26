@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace LineupApi.Models
 {
@@ -13,6 +14,11 @@ namespace LineupApi.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+
             modelBuilder.Entity<UserTeams>()
                 .HasKey(ut => new { ut.UserId, ut.TeamId });
             modelBuilder.Entity<UserTeams>()

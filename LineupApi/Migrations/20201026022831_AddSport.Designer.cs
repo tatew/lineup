@@ -2,39 +2,23 @@
 using LineupApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace LineupApi.Migrations
 {
     [DbContext(typeof(LineupContext))]
-    partial class LineupContextModelSnapshot : ModelSnapshot
+    [Migration("20201026022831_AddSport")]
+    partial class AddSport
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 .HasAnnotation("ProductVersion", "3.1.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
-
-            modelBuilder.Entity("LineupApi.Models.Sport", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Sport");
-                });
 
             modelBuilder.Entity("LineupApi.Models.Team", b =>
                 {
@@ -52,12 +36,7 @@ namespace LineupApi.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<int>("SportId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("SportId");
 
                     b.ToTable("Teams");
                 });
@@ -99,15 +78,6 @@ namespace LineupApi.Migrations
                     b.HasIndex("TeamId");
 
                     b.ToTable("UserTeams");
-                });
-
-            modelBuilder.Entity("LineupApi.Models.Team", b =>
-                {
-                    b.HasOne("LineupApi.Models.Sport", "Sport")
-                        .WithMany("Teams")
-                        .HasForeignKey("SportId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("LineupApi.Models.UserTeams", b =>

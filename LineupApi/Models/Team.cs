@@ -8,7 +8,8 @@ namespace LineupApi.Models
         public string Name {get; set;}
         public string City {get; set;}
         public string Abbreviation {get; set;}
-        public string Sport {get; set;}
         public ICollection<UserTeams> TeamUsers {get; set;}
+        public int SportId { get; set; }
+        public Sport Sport { get; set; }
     }
 }
