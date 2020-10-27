@@ -47,7 +47,7 @@ export class Calendar extends Component {
     }
 
     render() {
-
+        const selectedEvent = this.state.eventDetails.event;
         return (
             <div style={{margin: '5%'}}>
                 {this.state.loading && <ProgressSpinner/>}
@@ -64,8 +64,15 @@ export class Calendar extends Component {
                         eventClick={e => this.handleEventClick(e)}
                     />
                 }
-                <Dialog header={this.state.eventDetails.event.extendedProps.fullName} visible={this.state.showEventDetails} onHide={this.handleHide} style={{width: "75vw"}}>
-                    <p>{this.state.eventDetails.event.title}</p>
+                <Dialog header="Event Details" visible={this.state.showEventDetails} onHide={this.handleHide} style={{width: "75vw"}}>
+                    <div className="p-d-flex p-jc-center">
+                        <div className="p-m-2"><img src={selectedEvent.extendedProps.awayLogo} alt="away logo" height="100px" width="100px"/></div>
+                        <div className="p-m-2 p-as-center"><h1>vs</h1></div>
+                        <div className="p-m-2"><img src={selectedEvent.extendedProps.homeLogo} alt="home logo" height="100px" width="100px"/></div>
+                    </div>
+                    <h4 style={{textAlign: "center"}}>{selectedEvent.extendedProps.fullName}</h4>
+                    <h4 style={{textAlign: "center"}}>{new Date(selectedEvent.start).toLocaleString("en-US").replace(/(.*)\D\d+/, '$1')}</h4>
+                    <h5 style={{textAlign: "center"}}>{selectedEvent.extendedProps.venue}</h5>
                 </Dialog>
             </div>
         );

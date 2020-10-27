@@ -68,7 +68,12 @@ async function getEventsFromScheduleData(team)
             id: e.id,
             title: e.shortName,
             start: e.date,
-            fullName: e.name
+            fullName: e.name,
+            homeLogo: e.competitions[0].competitors[0].team.logos[0].href,
+            awayLogo: e.competitions[0].competitors[1].team.logos[0].href,
+            venue: e.competitions[0].venue.fullName + ', ' + e.competitions[0].venue.address.city + ' ' + e.competitions[0].venue.address.state,
+            completed: e.competitions[0].status.type.completed,
+            state: e.competitions[0].status.type.state
         };
         return event;
     });
