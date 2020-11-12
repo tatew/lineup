@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/app/LineupApi.csproj": {}
+    "/Users/tate/Documents/VSCodeProjects/Lineup/lineup/LineupApi/LineupApi.csproj": {}
   },
   "projects": {
-    "/app/LineupApi.csproj": {
+    "/Users/tate/Documents/VSCodeProjects/Lineup/lineup/LineupApi/LineupApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/app/LineupApi.csproj",
+        "projectUniqueName": "/Users/tate/Documents/VSCodeProjects/Lineup/lineup/LineupApi/LineupApi.csproj",
         "projectName": "LineupApi",
-        "projectPath": "/app/LineupApi.csproj",
-        "packagesPath": "/root/.nuget/packages/",
-        "outputPath": "/app/obj/",
+        "projectPath": "/Users/tate/Documents/VSCodeProjects/Lineup/lineup/LineupApi/LineupApi.csproj",
+        "packagesPath": "/Users/tate/.nuget/packages/",
+        "outputPath": "/Users/tate/Documents/VSCodeProjects/Lineup/lineup/LineupApi/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/root/.nuget/NuGet/NuGet.Config"
+          "/Users/tate/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -69,7 +69,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.300/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.301/RuntimeIdentifierGraph.json"
         }
       }
     }
