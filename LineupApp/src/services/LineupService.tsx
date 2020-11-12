@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { config } from './config';
+import {Team} from '../interfaces/interfaces';
 
 export const lineupService = {
     getTeamSchedule,
@@ -9,7 +10,7 @@ export const lineupService = {
     getEventsForUser
 }
 /*========================================================*/
-async function getTeamSchedule(team) {
+async function getTeamSchedule(team: Team): Promise<any> {
     try {
         const response = await axios({
             method: 'GET',
@@ -22,48 +23,61 @@ async function getTeamSchedule(team) {
     }
 }
 /*========================================================*/
-async function getTeams() {
-    let user = JSON.parse(sessionStorage.getItem("user"));
-    try {
-        const response = await axios({
-            method: 'GET',
-            url: config.apiUrl + 'lineup/teams',
-            headers: {
-                'mode':'cors',
-                'Access-Control-Allow-Origin': "*",
-                'Authorization': 'Bearer ' + user.token
-            }
-        });
-        return response.data;
-    } catch (error) {
-        console.log(error);
-        return false;
+async function getTeams(): Promise<Team[]> {
+    const userJson = sessionStorage.getItem("user");
+    if (userJson)
+    {
+        const user: any = JSON.parse(userJson);
+        try {
+            const response = await axios({
+                method: 'GET',
+                url: config.apiUrl + 'lineup/teams',
+                headers: {
+                    'mode':'cors',
+                    'Access-Control-Allow-Origin': "*",
+                    'Authorization': 'Bearer ' + user.token
+                }
+            });
+            return response.data;
+        } catch (error) {
+            console.log(error);
+            return [];
+        }
+    } else {
+        return [];
+    }
+    
+}
+/*========================================================*/
+async function getTeamsForUser(): Promise<Team[]> {
+    const userJson = sessionStorage.getItem("user");
+    if (userJson)
+    {
+        const user: any = JSON.parse(userJson);
+        try {
+            const response = await axios({
+                method: 'GET',
+                url: config.apiUrl + 'lineup/users/' + user.id + '/teams',
+                headers: {
+                    'mode':'cors',
+                    'Access-Control-Allow-Origin': "*",
+                    'Authorization': 'Bearer ' + user.token
+                }
+            });
+            return response.data;
+        } catch (error) {
+            console.log(error);
+            return [];
+        }
+    } else {
+        return [];
     }
 }
 /*========================================================*/
-async function getTeamsForUser() {
-    let user = JSON.parse(sessionStorage.getItem("user"));
-    try {
-        const response = await axios({
-            method: 'GET',
-            url: config.apiUrl + 'lineup/users/' + user.id + '/teams',
-            headers: {
-                'mode':'cors',
-                'Access-Control-Allow-Origin': "*",
-                'Authorization': 'Bearer ' + user.token
-            }
-        });
-        return response.data;
-    } catch (error) {
-        console.log(error);
-        return false;
-    }
-}
-/*========================================================*/
-async function getEventsFromScheduleData(team)
+async function getEventsFromScheduleData(team: Team)
 {
     const scheduleData = await getTeamSchedule(team);
-    const events = scheduleData.map(e => {
+    const events: any[] = scheduleData.map((e: any) => {
         const event = {
             id: e.id,
             title: e.shortName,
@@ -82,7 +96,7 @@ async function getEventsFromScheduleData(team)
 /*========================================================*/
 async function getEventsForUser() {
     const teams = await getTeamsForUser();
-    let events = [];
+    let events: Object[] = [];
     for (const team of teams) {
         const teamEvents = await getEventsFromScheduleData(team);
         events = events.concat(teamEvents);

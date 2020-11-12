@@ -2,10 +2,18 @@ import React, {Component} from 'react';
 import {lineupService} from '../services/LineupService';
 import { DataTable } from 'primereact/datatable';
 import {Column} from 'primereact/column';
+import {Team} from '../interfaces/interfaces';
 
-export class Settings extends Component {
+interface State {
+    usersTeams: Team[],
+    loading: boolean
+}
 
-    constructor(props) {
+interface Props {}
+
+export class Settings extends Component<Props, State> {
+
+    constructor(props: Props) {
         super(props);
         this.state = {
             usersTeams: [],
@@ -17,7 +25,7 @@ export class Settings extends Component {
         this.setState({
             loading: true
         })
-        var teams = await lineupService.getTeamsForUser();
+        var teams: Team[] = await lineupService.getTeamsForUser();
         this.setState({
             usersTeams: teams,
             loading: false

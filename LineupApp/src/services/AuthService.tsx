@@ -7,7 +7,7 @@ export const authService = {
     isAuth
 };
 
-async function login(email, password) {
+async function login(email: string, password: string): Promise<boolean> {
     try {
         const response = await axios({
             method: 'POST',
@@ -26,13 +26,13 @@ async function login(email, password) {
     }
 }
 
-function logout() {
+function logout(): boolean {
     sessionStorage.removeItem('user');
     window.location.reload();
     return true;
 }
 
-function isAuth() {
+function isAuth(): boolean {
     let user = sessionStorage.getItem('user');
     if(user){
         let userData = JSON.parse(user);

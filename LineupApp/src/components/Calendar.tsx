@@ -7,8 +7,22 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { Dialog } from 'primereact/dialog';
 
-export class Calendar extends Component {
-    constructor(props) {
+interface Props {}
+interface State {
+    teamName: string,
+    logoUrl: string,
+    events: any[],
+    loading: boolean,
+    showEventDetails: boolean,
+    eventDetails: EventDetails,
+}
+//TODO change this
+interface EventDetails {
+    event: any
+}
+
+export class Calendar extends Component<Props, State> {
+    constructor(props: Props) {
         super(props);
         this.state = {
             teamName: "",
@@ -32,7 +46,7 @@ export class Calendar extends Component {
         })
     }
 
-    handleEventClick = (eventInfo) => {
+    handleEventClick = (eventInfo: any) => {
         this.setState({
             eventDetails: eventInfo,
             showEventDetails: true

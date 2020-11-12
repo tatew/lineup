@@ -25,7 +25,7 @@ export class Topbar extends Component {
     }
 }
 
-const NavButton = (route, icon) => (
+const NavButton = (route: string, icon: string) => (
     <Route render={({ history}) => (
         <Button style={{}} label={route === "" ? "Calendar" : route} icon={icon} onClick={() => { history.push("/" + route) }}/>
         )}
