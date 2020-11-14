@@ -36,7 +36,7 @@ namespace LineupApi.Controllers
                 teamDto.Id = userTeam.Team.Id;
                 teamDto.Name = userTeam.Team.Name;
                 teamDto.Abbreviation = userTeam.Team.Abbreviation;
-                teamDto.City = userTeam.Team.City;
+                teamDto.Location = userTeam.Team.Location;
                 teamDto.SportUrl = userTeam.Team.Sport.Url;
                 teamDto.Sport = userTeam.Team.Sport.Name;
                 teams.Add(teamDto);

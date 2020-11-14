@@ -35,3 +35,8 @@ services:
             - POSTGRES_DB=lineup
             - POSTGRES_PASSWORD=wj3Kh2LG9n9pL
             - POSTGRES_USER=lineup_user
+    etl:
+        build:
+            context: ETL
+        volumes:
+            - ./ETL:/etl

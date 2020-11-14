@@ -43,7 +43,7 @@ export class Settings extends Component<Props, State> {
                 <h3>Settings</h3>
                 <DataTable value={this.state.usersTeams} style={{margin: "1em"}} header={header} loading={this.state.loading}>
                     <Column field="name" header="Name"/>
-                    <Column field="city" header="City"/>
+                    <Column field="location" header="Location"/>
                 </DataTable>
             </div>
         );

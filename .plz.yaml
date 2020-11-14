@@ -3,3 +3,5 @@
     - docker-compose stop api
     - docker-compose run --rm api dotnet ef --project LineupApi.csproj database update
     - docker-compose start api
+- id: loadteams
+  cmd: docker-compose run --rm etl python /etl/import-teams.py
