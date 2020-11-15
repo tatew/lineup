@@ -5,3 +5,5 @@
     - docker-compose start api
 - id: loadteams
   cmd: docker-compose run --rm etl python /etl/import-teams.py
+- id: loadcollege
+  cmd: docker-compose run --rm etl python /etl/import-college-teams.py

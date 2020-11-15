@@ -11,5 +11,7 @@ namespace LineupApi.Models
         public ICollection<UserTeams> TeamUsers {get; set;}
         public int SportId { get; set; }
         public Sport Sport { get; set; }
+        public int? ConferenceId { get; set; }
+        public CFBConference? Conference { get; set; }
     }
 }
