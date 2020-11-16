@@ -44,7 +44,7 @@ def importTeams(groupId, cursor, name):
         team = teamObj["team"]
         cursor.execute(
             'INSERT INTO "Teams" ("Name", "Abbreviation", "Location", "SportId", "ConferenceId") VALUES (%s, %s, %s, %s, %s)',
-            [team["name"], team["abbreviation"].lower(), team["location"], "1", f"{groupId}"]
+            [team["name"], team["abbreviation"].lower(), team["location"], "4", f"{groupId}"]
         )
         teamsImported += 1
     
@@ -67,7 +67,7 @@ def main():
     print("---Importing FBS---")
     print("Importing FBS Conferences")
     cursor.executemany(
-        'INSERT INTO "CFBConference" ("Id", "Name", "DivisonId") VALUES (%s, %s, 1)',
+        'INSERT INTO "CFBConferences" ("Id", "Name", "DivisonId") VALUES (%s, %s, 80)',
         fbsConferences
     )
 
@@ -80,7 +80,7 @@ def main():
     print("---Importing FCS---")
     print("Importing FCS Conferences")
     cursor.executemany(
-        'INSERT INTO "CFBConference" ("Id", "Name", "DivisonId") VALUES (%s, %s, 2)',
+        'INSERT INTO "CFBConferences" ("Id", "Name", "DivisonId") VALUES (%s, %s, 81)',
         fcsConferences
     )
 

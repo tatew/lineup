@@ -15,6 +15,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using LineupApi.Models;
+using LineupApi.Helpers;
+using AutoMapper;
 
 namespace LineupApi
 {
@@ -33,6 +35,8 @@ namespace LineupApi
             services.AddDbContext<LineupContext>(options =>
                 options.UseNpgsql("Host=db;Database=lineup;Username=lineup_user;Password=wj3Kh2LG9n9pL"));
             services.AddControllers();
+
+            services.AddAutoMapper(new Type[] { typeof(LineupApi.Helpers.AutoMapperProfile) });
 
             var key = Encoding.ASCII.GetBytes("Top_Secret_Key123");
             services.AddAuthentication(x =>

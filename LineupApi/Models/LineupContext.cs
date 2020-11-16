@@ -9,8 +9,11 @@ namespace LineupApi.Models
         {
         }
 
-        public DbSet<Team> Teams {get; set;}
-        public DbSet<User> Users {get; set;}
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Sport> Sports { get; set; }
+        public DbSet<CFBConference> CFBConferences { get; set; }
+        public DbSet<CFBDivison> CFBDivisons { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

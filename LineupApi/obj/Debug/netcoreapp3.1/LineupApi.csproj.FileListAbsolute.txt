@@ -97,3 +97,5 @@
 /Users/tate/Documents/VSCodeProjects/Lineup/lineup/LineupApi/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.Tokens.dll
 /Users/tate/Documents/VSCodeProjects/Lineup/lineup/LineupApi/bin/Debug/netcoreapp3.1/Newtonsoft.Json.dll
 /Users/tate/Documents/VSCodeProjects/Lineup/lineup/LineupApi/bin/Debug/netcoreapp3.1/System.IdentityModel.Tokens.Jwt.dll
+/app/bin/Debug/netcoreapp3.1/AutoMapper.dll
+/app/bin/Debug/netcoreapp3.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll

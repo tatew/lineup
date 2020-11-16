@@ -3,6 +3,8 @@ import {lineupService} from '../services/LineupService';
 import { DataTable } from 'primereact/datatable';
 import {Column} from 'primereact/column';
 import {Team} from '../interfaces/interfaces';
+import { Route } from 'react-router-dom'
+import { Button } from 'primereact/button';
 
 interface State {
     usersTeams: Team[],
@@ -41,6 +43,7 @@ export class Settings extends Component<Props, State> {
         return(
             <div>
                 <h3>Settings</h3>
+                <AddTeamButton/>
                 <DataTable value={this.state.usersTeams} style={{margin: "1em"}} header={header} loading={this.state.loading}>
                     <Column field="name" header="Name"/>
                     <Column field="location" header="Location"/>
@@ -49,3 +52,10 @@ export class Settings extends Component<Props, State> {
         );
     }
 }
+
+const AddTeamButton = () => (
+    <Route render={({ history}) => (
+        <Button style={{}} label="Add a Team" icon={"pi pi-plus"} onClick={() => { history.push("/addTeam") }}/>
+        )}
+    />
+)

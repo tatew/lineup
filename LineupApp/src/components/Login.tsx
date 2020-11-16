@@ -45,7 +45,8 @@ export class Login extends Component<Props, State> {
                                     value={this.state.password} 
                                     onChange={(e: any) => this.setState({password: e.target.value})}
                                     style={{display: "block", margin: "1em"}}
-                                    className="p-inputtext-lg p-mx-auto"/>
+                                    className="p-inputtext-lg p-mx-auto"
+                                    type="password"/>
                                 <label htmlFor="password" className="p-mx-auto">Password</label>
                             </span>
                         </div>

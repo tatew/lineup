@@ -1,13 +1,15 @@
 import axios from 'axios';
 import { config } from './config';
-import {Team} from '../interfaces/interfaces';
+import { Team, Sport } from '../interfaces/interfaces';
 
 export const lineupService = {
     getTeamSchedule,
     getTeams,
     getTeamsForUser,
     getEventsFromScheduleData,
-    getEventsForUser
+    getEventsForUser,
+    getSports,
+    getTeamsForSport
 }
 /*========================================================*/
 async function getTeamSchedule(team: Team): Promise<any> {
@@ -102,4 +104,54 @@ async function getEventsForUser() {
         events = events.concat(teamEvents);
     }
     return events;
+}
+/*========================================================*/
+async function getSports() : Promise<Sport[]> {
+    const userJson = sessionStorage.getItem("user");
+    if (userJson)
+    {
+        const user: any = JSON.parse(userJson);
+        try {
+            const response = await axios({
+                method: 'GET',
+                url: config.apiUrl + 'lineup/sports',
+                headers: {
+                    'mode':'cors',
+                    'Access-Control-Allow-Origin': "*",
+                    'Authorization': 'Bearer ' + user.token
+                }
+            });
+            return response.data;
+        } catch (error) {
+            console.log(error);
+            return [];
+        }
+    } else {
+        return [];
+    }
+}
+/*========================================================*/
+async function getTeamsForSport(sportId : number) : Promise<Team[]> {
+    const userJson = sessionStorage.getItem("user");
+    if (userJson)
+    {
+        const user: any = JSON.parse(userJson);
+        try {
+            const response = await axios({
+                method: 'GET',
+                url: config.apiUrl + 'lineup/sports/' + sportId + '/teams',
+                headers: {
+                    'mode':'cors',
+                    'Access-Control-Allow-Origin': "*",
+                    'Authorization': 'Bearer ' + user.token
+                }
+            });
+            return response.data;
+        } catch (error) {
+            console.log(error);
+            return [];
+        }
+    } else {
+        return [];
+    }
 }

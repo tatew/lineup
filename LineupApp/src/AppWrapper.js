@@ -1,10 +1,11 @@
-import React, {Component} from 'react';
-import {withRouter, Switch, Route} from 'react-router-dom';
+import React, { Component } from 'react';
+import { withRouter, Switch, Route } from 'react-router-dom';
 import { Login } from './components/Login';
 import { Calendar } from './components/Calendar';
-import {Settings} from './components/Settings';
-import {authService} from './services/AuthService';
-import {PrivateRoute} from './routes/PrivateRoute';
+import { AddTeam } from './components/AddTeam';
+import { Settings } from './components/Settings';
+import { authService } from './services/AuthService';
+import { PrivateRoute } from './routes/PrivateRoute';
 import 'primeflex/primeflex.css';
 
 class AppWrapper extends Component {
@@ -22,11 +23,12 @@ class AppWrapper extends Component {
         return (
             <div>
                 <Switch>
-                    <PrivateRoute path="/settings" component={Settings} isAuth={isAuthorized}/>
+                    <PrivateRoute path="/settings" component={Settings} isAuth={isAuthorized} />
+                    <PrivateRoute path="/addTeam" component={AddTeam} isAuth={isAuthorized}/>
                     <Route path="/login">
-                        <Login/>
+                        <Login />
                     </Route>
-                    <PrivateRoute path="/" component={Calendar} isAuth={isAuthorized}/>
+                    <PrivateRoute path="/" component={Calendar} isAuth={isAuthorized} />
                 </Switch>
             </div>
         );

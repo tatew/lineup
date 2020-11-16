@@ -1,4 +1,4 @@
-namespace LineupApi.Models
+namespace LineupApi.DTOs
 {
     public class TeamDTO
     {
@@ -7,6 +7,5 @@ namespace LineupApi.Models
         public string Location {get; set;}
         public string Abbreviation {get; set;}
         public string SportUrl {get; set;}
-        public string Sport { get; set; }
     }
 }

@@ -1,9 +1,11 @@
 using System.Linq;
 using System.Collections.Generic;
 using LineupApi.Models;
+using LineupApi.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace LineupApi.Controllers
 {
@@ -12,17 +14,21 @@ namespace LineupApi.Controllers
     public class LineupController : ControllerBase
     {
         private readonly LineupContext _context;
+        private IMapper _mapper;
 
-        public LineupController(LineupContext context)
+        public LineupController(LineupContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
+
         }
 
         [HttpGet("teams")]
         public IActionResult GetTeams()
         {
-            var teams = _context.Teams.ToList();
-            return Ok(teams);
+            var teams = _context.Teams.Include(t => t.Sport);
+            var teamDTOs = _mapper.Map<List<TeamDTO>>(teams);
+            return Ok(teamDTOs);
         } 
 
         [HttpGet("users/{id}/teams")]
@@ -38,10 +44,28 @@ namespace LineupApi.Controllers
                 teamDto.Abbreviation = userTeam.Team.Abbreviation;
                 teamDto.Location = userTeam.Team.Location;
                 teamDto.SportUrl = userTeam.Team.Sport.Url;
-                teamDto.Sport = userTeam.Team.Sport.Name;
                 teams.Add(teamDto);
             }
+
             return Ok(teams);
+        }
+
+        [HttpGet("sports")]
+        public IActionResult GetSports()
+        {
+            var sports = _context.Sports;
+            var sportDTOs = _mapper.Map<List<SportDTO>>(sports);
+            
+            return Ok(sportDTOs);
+        }
+
+        [HttpGet("sports/{id}/teams")]
+        public IActionResult GetTeamsForSport(int id)
+        {
+            var teams = _context.Teams.Include(t => t.Sport).Where(t => t.Sport.Id == id);
+            var teamDTOs = _mapper.Map<List<TeamDTO>>(teams);
+
+            return Ok(teamDTOs);
         }
     }
 }

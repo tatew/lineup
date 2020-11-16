@@ -6,3 +6,9 @@ export interface Team {
     sportUrl: string,
     sport: string
 }
+
+export interface Sport {
+    id: number,
+    name: string,
+    url: string
+}
