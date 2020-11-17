@@ -42,9 +42,14 @@ def importTeams(groupId, cursor, name):
 
     for teamObj in teams:
         team = teamObj["team"]
+        try:
+            logo = team["logos"][0]["href"]
+        except:
+            logo = ""
+
         cursor.execute(
-            'INSERT INTO "Teams" ("Name", "Abbreviation", "Location", "SportId", "ConferenceId") VALUES (%s, %s, %s, %s, %s)',
-            [team["name"], team["abbreviation"].lower(), team["location"], "4", f"{groupId}"]
+            'INSERT INTO "Teams" ("Name", "Abbreviation", "Location", "SportId", "ConferenceId", "LogoUrl") VALUES (%s, %s, %s, %s, %s, %s)',
+            [team["name"], team["abbreviation"].lower(), team["location"], "4", f"{groupId}", logo]
         )
         teamsImported += 1
     

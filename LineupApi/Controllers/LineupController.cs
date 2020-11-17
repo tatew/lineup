@@ -62,10 +62,23 @@ namespace LineupApi.Controllers
         [HttpGet("sports/{id}/teams")]
         public IActionResult GetTeamsForSport(int id)
         {
-            var teams = _context.Teams.Include(t => t.Sport).Where(t => t.Sport.Id == id);
+            var teams = _context.Teams.Include(t => t.Sport).Where(t => t.Sport.Id == id).OrderBy(t => t.Name);
             var teamDTOs = _mapper.Map<List<TeamDTO>>(teams);
 
             return Ok(teamDTOs);
+        }
+
+        [HttpPost("users/{id}/teams")]
+        public IActionResult AddUserTeam(int id, [FromBody]TeamDTO teamDTO)
+        {
+            var userTeam = new UserTeams();
+            userTeam.UserId = id;
+            userTeam.TeamId = teamDTO.Id;
+
+            _context.UserTeams.Add(userTeam);
+            _context.SaveChanges();
+
+            return Ok();
         }
     }
 }

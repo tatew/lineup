@@ -22,8 +22,8 @@ def main():
     for teamObj in mlbTeams:
         team = teamObj["team"]
         cursor.execute(
-            'INSERT INTO "Teams" ("Name", "Abbreviation", "Location", "SportId") VALUES (%s, %s, %s, %s)',
-            [team["name"], team["abbreviation"].lower(), team["location"], "1"]
+            'INSERT INTO "Teams" ("Name", "Abbreviation", "Location", "SportId", "LogoUrl") VALUES (%s, %s, %s, %s, %s)',
+            [team["name"], team["abbreviation"].lower(), team["location"], "1", team["logos"][0]["href"]]
         )
 
     nflRequest = requests.get(url="http://site.api.espn.com/apis/site/v2/sports/football/nfl/teams?limit=32")
@@ -39,8 +39,8 @@ def main():
             #Fuck Dan Snyder
 
         cursor.execute(
-            'INSERT INTO "Teams" ("Name", "Abbreviation", "Location", "SportId") VALUES (%s, %s, %s, %s)',
-            [name, team["abbreviation"].lower(), team["location"], "2"]
+            'INSERT INTO "Teams" ("Name", "Abbreviation", "Location", "SportId", "LogoUrl") VALUES (%s, %s, %s, %s, %s)',
+            [name, team["abbreviation"].lower(), team["location"], "2", team["logos"][0]["href"]]
         )
 
     nhlRequest = requests.get(url="http://site.api.espn.com/apis/site/v2/sports/hockey/nhl/teams?limit=32")
@@ -51,8 +51,8 @@ def main():
         team = teamObj["team"]
 
         cursor.execute(
-            'INSERT INTO "Teams" ("Name", "Abbreviation", "Location", "SportId") VALUES (%s, %s, %s, %s)',
-            [team["name"], team["abbreviation"].lower(), team["location"], "5"]
+            'INSERT INTO "Teams" ("Name", "Abbreviation", "Location", "SportId", "LogoUrl") VALUES (%s, %s, %s, %s, %s)',
+            [team["name"], team["abbreviation"].lower(), team["location"], "5", team["logos"][0]["href"]]
         )
 
     nbaRequest = requests.get(url="http://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams?limit=30")
@@ -63,8 +63,8 @@ def main():
         team = teamObj["team"]
 
         cursor.execute(
-            'INSERT INTO "Teams" ("Name", "Abbreviation", "Location", "SportId") VALUES (%s, %s, %s, %s)',
-            [team["name"], team["abbreviation"].lower(), team["location"], "3"]
+            'INSERT INTO "Teams" ("Name", "Abbreviation", "Location", "SportId", "LogoUrl") VALUES (%s, %s, %s, %s, %s)',
+            [team["name"], team["abbreviation"].lower(), team["location"], "3", team["logos"][0]["href"]]
         )
 
     # Commit changes

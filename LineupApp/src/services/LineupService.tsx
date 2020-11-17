@@ -9,7 +9,8 @@ export const lineupService = {
     getEventsFromScheduleData,
     getEventsForUser,
     getSports,
-    getTeamsForSport
+    getTeamsForSport,
+    addTeamForUser
 }
 /*========================================================*/
 async function getTeamSchedule(team: Team): Promise<any> {
@@ -153,5 +154,30 @@ async function getTeamsForSport(sportId : number) : Promise<Team[]> {
         }
     } else {
         return [];
+    }
+}
+/*========================================================*/
+async function addTeamForUser(team : Team) : Promise<boolean> {
+    const userJson = sessionStorage.getItem("user");
+    if (userJson)
+    {
+        const user: any = JSON.parse(userJson);
+        try {
+            const response = await axios({
+                method: 'POST',
+                url: config.apiUrl + 'lineup/users/' + user.id + '/teams',
+                headers: {
+                    'mode':'cors',
+                    'Access-Control-Allow-Origin': "*",
+                    'Authorization': 'Bearer ' + user.token
+                },
+                data: team
+            });
+            return true;
+        } catch (error) {
+            console.log(error);
+        }
+    } else {
+        return false;
     }
 }

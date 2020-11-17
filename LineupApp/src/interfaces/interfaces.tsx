@@ -1,10 +1,11 @@
 export interface Team {
     id: number, 
     name: string, 
-    city: string,
+    location: string,
     abbreviation: string,
     sportUrl: string,
-    sport: string
+    sport: string,
+    logoUrl: string
 }
 
 export interface Sport {
