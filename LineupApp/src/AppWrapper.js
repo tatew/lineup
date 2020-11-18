@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withRouter, Switch, Route } from 'react-router-dom';
 import { Login } from './components/Login';
 import { Calendar } from './components/Calendar';
-import { AddTeam } from './components/AddTeam';
 import { Settings } from './components/Settings';
 import { authService } from './services/AuthService';
 import { PrivateRoute } from './routes/PrivateRoute';
@@ -24,7 +23,6 @@ class AppWrapper extends Component {
             <div>
                 <Switch>
                     <PrivateRoute path="/settings" component={Settings} isAuth={isAuthorized} />
-                    <PrivateRoute path="/addTeam" component={AddTeam} isAuth={isAuthorized}/>
                     <Route path="/login">
                         <Login />
                     </Route>

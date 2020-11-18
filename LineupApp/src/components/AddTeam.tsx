@@ -5,7 +5,8 @@ import { Dropdown } from 'primereact/dropdown';
 import { Button } from 'primereact/button';
 
 interface Props {
-
+    onCancel: Function,
+    usersTeams: Team[]
 }
 
 interface State {
@@ -44,10 +45,21 @@ export class AddTeam extends Component<Props, State> {
             selectedTeam: null
         });
         const teams = await lineupService.getTeamsForSport(e.value.id);
+        const avaliableTeams = teams.filter(e => !this.teamsIncludes(this.props.usersTeams, e));
         this.setState({
-            teams: teams,
+            teams: avaliableTeams,
             teamsLoaded: true
-        })
+        });
+    }
+
+    teamsIncludes = (teams: Team[], team: Team) => {
+        let result = false;
+        for (let i = 0; i < teams.length; i++) {
+            if (teams[i].id === team.id) {
+                result = true;
+            }
+        }
+        return result;
     }
 
     handleAdd = async (e: any) => {
@@ -55,12 +67,12 @@ export class AddTeam extends Component<Props, State> {
         this.setState({
             success: result,
         })
+        this.props.onCancel(true);
     }
 
     render() {
         return (
-            <div className="p-d-inline-flex p-flex-column p-jc-center">
-                <h3>Add A Team</h3>
+            <div className="p-d-inline-flex p-flex-column p-jc-start" style={{height: "30vw"}}>
                 <Dropdown className="p-mb-2 p-text-left"
                     style={{width: "200px"}}
                     optionLabel="name" 
@@ -81,7 +93,8 @@ export class AddTeam extends Component<Props, State> {
                     <div>
                         <img src={this.state.selectedTeam.logoUrl} alt={this.state.selectedTeam.name + "logo"} height="100px"/>
                         <h3>{this.state.selectedTeam.location} {this.state.selectedTeam.name}</h3>
-                        <Button label="Add" icon="pi pi-check" className="p-button-success" onClick={this.handleAdd}/>
+                        <Button icon="pi pi-times" className="p-button-danger p-button-rounded" style={{margin: "1em"}} onClick={() => this.props.onCancel(false)}/>
+                        <Button icon="pi pi-check" className="p-button-success p-button-rounded" style={{margin: "1em"}} onClick={this.handleAdd}/>
                     </div>
                 }
                 
