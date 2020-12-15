@@ -7,12 +7,14 @@ import { Route } from 'react-router-dom'
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { AddTeam } from './AddTeam';
+import { InputText } from 'primereact/inputtext';
 
 interface State {
     usersTeams: Team[],
     loading: boolean,
     showAddTeam: boolean,
     showRemoveTeamFail: boolean,
+    globalFilter: string
 }
 
 interface Props {}
@@ -26,6 +28,7 @@ export class Settings extends Component<Props, State> {
             loading: false,
             showAddTeam: false,
             showRemoveTeamFail: false,
+            globalFilter: "",
         };
     }
 
@@ -88,10 +91,21 @@ export class Settings extends Component<Props, State> {
         const header = (
             <div className="p-grid p-fluid">
                 <div className="p-col">
-                    <h4 style={{textAlign: "left"}}>My Teams</h4>
+                    <Button 
+                        style={{width: "auto", float: "left"}} 
+                        label="Add a Team" 
+                        icon="pi pi-plus" 
+                        onClick={e => this.setState({showAddTeam: true})}/>
                 </div>
                 <div className="p-col">
-                    <Button style={{width: "auto", float: "right"}} label="Add a Team" icon="pi pi-plus" onClick={e => this.setState({showAddTeam: true})}/>
+                    <h4>My Teams</h4>
+                </div>
+                <div className="p-col">
+                    <InputText 
+                        type="search" 
+                        onInput={(e: any) => this.setState({globalFilter: e.target.value})} 
+                        placeholder="Search"
+                        style={{width: "50%", minWidth: "175px", float: "right"}}/>
                 </div>
             </div>
         );
@@ -106,11 +120,17 @@ export class Settings extends Component<Props, State> {
                     <p>An error occured when trying to remove the team, please try again</p>
                     <Button label="Ok" onClick={() => this.setState({showRemoveTeamFail: false})}/>
                 </Dialog>
-                <DataTable value={this.state.usersTeams} style={{margin: "1em"}} header={header} loading={this.state.loading}>
+                <DataTable 
+                        value={this.state.usersTeams} 
+                        style={{margin: "1em"}} 
+                        header={header} 
+                        loading={this.state.loading}
+                        globalFilter={this.state.globalFilter} emptyMessage="No records found"
+                        sortMode="multiple">
+                    <Column body={this.deleteTemplate} header="Remove" style={{textAlign: "left", width: "10%", maxWidth: "100px"}}/>
                     <Column body={this.logoTemplate} header="Logo" style={{width: "13%"}}/>
-                    <Column field="name" header="Name"/>
-                    <Column field="location" header="Location"/>
-                    <Column body={this.deleteTemplate} header="Remove" style={{textAlign: "right", width: "15%"}}/>
+                    <Column field="location" header="Location" sortable/>
+                    <Column field="name" header="Name" sortable/>
                 </DataTable>
             </div>
         );
