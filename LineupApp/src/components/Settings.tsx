@@ -95,7 +95,8 @@ export class Settings extends Component<Props, State> {
                         style={{width: "auto", float: "left"}} 
                         label="Add a Team" 
                         icon="pi pi-plus" 
-                        onClick={e => this.setState({showAddTeam: true})}/>
+                        onClick={e => this.setState({showAddTeam: true})}
+                        className="p-button-outlined"/>
                 </div>
                 <div className="p-col">
                     <h4>My Teams</h4>

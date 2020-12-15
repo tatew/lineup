@@ -87,7 +87,8 @@ export class AddTeam extends Component<Props, State> {
                         value={this.state.selectedTeam} 
                         options={this.state.teams} 
                         onChange={(e) => this.setState({selectedTeam: e.value})}
-                        placeholder="Choose a Team"/>
+                        placeholder="Choose a Team"
+                        filter/>
                 }
                 {this.state.selectedTeam &&
                     <div>
