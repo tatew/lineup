@@ -10,7 +10,8 @@ export const lineupService = {
     getEventsForUser,
     getSports,
     getTeamsForSport,
-    addTeamForUser
+    addTeamForUser,
+    removeTeamForUser
 }
 /*========================================================*/
 async function getTeamSchedule(team: Team): Promise<any> {
@@ -176,6 +177,32 @@ async function addTeamForUser(team : Team) : Promise<boolean> {
             return true;
         } catch (error) {
             console.log(error);
+        }
+    } else {
+        return false;
+    }
+}
+
+/*========================================================*/
+async function removeTeamForUser(id : number) {
+    const userJson = sessionStorage.getItem("user");
+    if (userJson)
+    {
+        const user: any = JSON.parse(userJson);
+        try {
+            const response = await axios({
+                method: 'DELETE',
+                url: config.apiUrl + 'lineup/users/' + user.id + '/teams/' + id,
+                headers: {
+                    'mode':'cors',
+                    'Access-Control-Allow-Origin': "*",
+                    'Authorization': 'Bearer ' + user.token
+                }
+            });
+            return true;
+        } catch (error) {
+            console.log(error);
+            return false;
         }
     } else {
         return false;

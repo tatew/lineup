@@ -44,6 +44,7 @@ namespace LineupApi.Controllers
                 teamDto.Abbreviation = userTeam.Team.Abbreviation;
                 teamDto.Location = userTeam.Team.Location;
                 teamDto.SportUrl = userTeam.Team.Sport.Url;
+                teamDto.LogoUrl = userTeam.Team.LogoUrl;
                 teams.Add(teamDto);
             }
 
@@ -78,6 +79,19 @@ namespace LineupApi.Controllers
             _context.UserTeams.Add(userTeam);
             _context.SaveChanges();
 
+            return Ok();
+        }
+
+        [HttpDelete("users/{id}/teams/{teamId}")]
+        public IActionResult RemoveUserTeam(int id, int teamId)
+        {
+            var userTeam = _context.UserTeams.FirstOrDefault(ut => ut.UserId == id && ut.TeamId == teamId);
+            if (userTeam == null)
+            {
+                return NotFound();
+            }
+            _context.UserTeams.Remove(userTeam);
+            _context.SaveChanges();
             return Ok();
         }
     }

@@ -72,7 +72,7 @@ export class AddTeam extends Component<Props, State> {
 
     render() {
         return (
-            <div className="p-d-inline-flex p-flex-column p-jc-start" style={{height: "30vw"}}>
+            <div className="p-d-inline-flex p-flex-column p-jc-start" style={{height: "40vw"}}>
                 <Dropdown className="p-mb-2 p-text-left"
                     style={{width: "200px"}}
                     optionLabel="name" 
