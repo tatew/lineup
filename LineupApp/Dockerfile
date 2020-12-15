@@ -3,7 +3,7 @@ FROM node AS base
 WORKDIR /app
 
 COPY package.json .
-RUN npm install
+RUN npx -p npm@6 npm install
 
 EXPOSE 3000
 

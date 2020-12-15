@@ -3,7 +3,12 @@
     - docker-compose stop api
     - docker-compose run --rm api dotnet ef --project LineupApi.csproj database update
     - docker-compose start api
+- id: makemigration
+  cmd: 
+    - docker-compose run --rm api dotnet ef --project LineupApi.csproj migrations add 
 - id: loadteams
   cmd: docker-compose run --rm etl python /etl/import-teams.py
 - id: loadcollege
   cmd: docker-compose run --rm etl python /etl/import-college-teams.py
+- id: initdb
+  cmd: docker-compose run --rm etl python /etl/init-db.py

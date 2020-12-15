@@ -17,8 +17,8 @@ namespace LineupApi.Helpers
             CreateMap<Sport, SportDTO>();
             CreateMap<SportDTO, Sport>();
 
-            CreateMap<CFBDivison, CFBDivisonDTO>();
-            CreateMap<CFBDivisonDTO, CFBDivison>();
+            CreateMap<CFBDivision, CFBDivisonDTO>();
+            CreateMap<CFBDivisonDTO, CFBDivision>();
 
             CreateMap<CFBConference, CFBConferenceDTO>();
             CreateMap<CFBConferenceDTO, CFBConference>();

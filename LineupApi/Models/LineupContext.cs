@@ -13,7 +13,7 @@ namespace LineupApi.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Sport> Sports { get; set; }
         public DbSet<CFBConference> CFBConferences { get; set; }
-        public DbSet<CFBDivison> CFBDivisons { get; set; }
+        public DbSet<CFBDivision> CFBDivisions { get; set; }
         public DbSet<UserTeams> UserTeams { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

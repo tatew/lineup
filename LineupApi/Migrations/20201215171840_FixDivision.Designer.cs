@@ -3,15 +3,17 @@ using System;
 using LineupApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace LineupApi.Migrations
 {
     [DbContext(typeof(LineupContext))]
-    partial class LineupContextModelSnapshot : ModelSnapshot
+    [Migration("20201215171840_FixDivision")]
+    partial class FixDivision
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,7 +56,7 @@ namespace LineupApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CFBDivisions");
+                    b.ToTable("CFBDivisons");
                 });
 
             modelBuilder.Entity("LineupApi.Models.Sport", b =>
