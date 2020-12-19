@@ -8,7 +8,9 @@
     - docker-compose run --rm api dotnet ef --project LineupApi.csproj migrations add 
 - id: loadteams
   cmd: docker-compose run --rm etl python /etl/import-teams.py
-- id: loadcollege
+- id: loadcfb
   cmd: docker-compose run --rm etl python /etl/import-college-teams.py
 - id: initdb
   cmd: docker-compose run --rm etl python /etl/init-db.py
+- id: loadcbb
+  cmd: docker-compose run --rm etl python /etl/import-cbb-teams.py

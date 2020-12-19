@@ -15,7 +15,7 @@ namespace LineupApi.Models
         public DbSet<CFBConference> CFBConferences { get; set; }
         public DbSet<CFBDivision> CFBDivisions { get; set; }
         public DbSet<UserTeams> UserTeams { get; set; }
-
+        public DbSet<CBBConference> CBBConferences { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))

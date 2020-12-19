@@ -5,7 +5,8 @@ sports = [
     ("NFL", "football/nfl"),
     ("NBA", "basketball/nba"),
     ("CFB", "football/college-football"),
-    ("NHL", "hockey/nhl")
+    ("NHL", "hockey/nhl"),
+    ("CBB", "basketball/mens-college-basketball")
 ]
 
 divisions = [
