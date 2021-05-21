@@ -33,7 +33,7 @@ namespace LineupApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<LineupContext>(options =>
-                options.UseNpgsql("Host=db;Database=lineup;Username=lineup_user;Password=wj3Kh2LG9n9pL"));
+                options.UseNpgsql("Host=db;Database=lineup;Username=lineup_user;Password=samplepass"));
             services.AddControllers();
 
             services.AddAutoMapper(new Type[] { typeof(LineupApi.Helpers.AutoMapperProfile) });

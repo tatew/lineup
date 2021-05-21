@@ -41,7 +41,6 @@ export class Calendar extends Component<Props, State> {
 
     componentDidMount = async () => {
         const events = await lineupService.getEventsForUser();
-        console.log(events.findIndex((e: any) => e.id === "401227669"));
         const noDupEvents = events.filter((item: any, index) => {
             return events.findIndex((e: any) => e.id === item.id) === index;
         });

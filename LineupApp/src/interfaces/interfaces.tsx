@@ -13,3 +13,9 @@ export interface Sport {
     name: string,
     url: string
 }
+
+export interface CFBConference {
+    id: number,
+    name: string,
+    divisionId: number
+}

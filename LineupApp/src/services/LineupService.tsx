@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { config } from './config';
-import { Team, Sport } from '../interfaces/interfaces';
+import { Team, Sport, CFBConference } from '../interfaces/interfaces';
 
 export const lineupService = {
     getTeamSchedule,
@@ -156,6 +156,10 @@ async function getTeamsForSport(sportId : number) : Promise<Team[]> {
     } else {
         return [];
     }
+}
+/*========================================================*/
+async function getCFBConferences() : Promise<CFBConference[]> {
+    
 }
 /*========================================================*/
 async function addTeamForUser(team : Team) : Promise<boolean> {

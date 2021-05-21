@@ -33,7 +33,7 @@ services:
             - "15432:5432"
         environment:
             - POSTGRES_DB=lineup
-            - POSTGRES_PASSWORD=wj3Kh2LG9n9pL
+            - POSTGRES_PASSWORD=samplepass
             - POSTGRES_USER=lineup_user
     etl:
         build:

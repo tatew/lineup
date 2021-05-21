@@ -39,12 +39,20 @@ export class AddTeam extends Component<Props, State> {
         });
     }
 
-    handleSportChange = async (e: any) => {
+    handleSportChange = async (sport: any) => {
         this.setState({
-            selectedSport: e.value,
+            selectedSport: sport.value,
             selectedTeam: null
         });
-        const teams = await lineupService.getTeamsForSport(e.value.id);
+
+        let teams : Team[] = [];
+        if (sport.value.name === "CFB") {
+
+        } else {
+
+        }
+
+        teams = await lineupService.getTeamsForSport(sport.value.id);
         const avaliableTeams = teams.filter(e => !this.teamsIncludes(this.props.usersTeams, e));
         this.setState({
             teams: avaliableTeams,
