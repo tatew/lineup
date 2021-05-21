@@ -6,6 +6,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { Dialog } from 'primereact/dialog';
+import { nodeModuleNameResolver } from 'typescript';
 
 interface Props {}
 interface State {
@@ -40,8 +41,12 @@ export class Calendar extends Component<Props, State> {
 
     componentDidMount = async () => {
         const events = await lineupService.getEventsForUser();
+        console.log(events.findIndex((e: any) => e.id === "401227669"));
+        const noDupEvents = events.filter((item: any, index) => {
+            return events.findIndex((e: any) => e.id === item.id) === index;
+        });
         this.setState({
-            events: events,
+            events: noDupEvents,
             loading: false
         })
     }

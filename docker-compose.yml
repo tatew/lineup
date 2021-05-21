@@ -30,7 +30,7 @@ services:
     db:
         image: postgres:12.2
         ports:
-            - "5432:5432"
+            - "15432:5432"
         environment:
             - POSTGRES_DB=lineup
             - POSTGRES_PASSWORD=wj3Kh2LG9n9pL

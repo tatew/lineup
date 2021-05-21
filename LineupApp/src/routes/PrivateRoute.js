@@ -3,7 +3,6 @@ import { Route, Redirect } from "react-router-dom";
 import {Topbar} from '../components/Topbar';
 
 export function PrivateRoute({ component: Component, isAuth: auth, ...rest }) {
-    console.log(auth);
     return (
       <Route
         {...rest}
