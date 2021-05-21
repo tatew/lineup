@@ -64,7 +64,7 @@ def importTeams(groupId, cursor, name):
 def main():
     server="db"
     username="lineup_user"
-    password="wj3Kh2LG9n9pL"
+    password="samplepass"
     database="lineup"
     connection = psycopg2.connect(user = username,
                                     password = password,

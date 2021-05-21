@@ -7,7 +7,7 @@ namespace LineupApi.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public ICollection<Team> Teams { get; set; }
-        public int DivisonId { get; set; }
+        public int DivisionId { get; set; }
         public CFBDivision Division { get; set; }
     }
 }

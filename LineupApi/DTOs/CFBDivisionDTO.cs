@@ -1,6 +1,6 @@
 namespace LineupApi.DTOs 
 {
-    public class CFBDivisonDTO
+    public class CFBDivisionDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }

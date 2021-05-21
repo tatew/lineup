@@ -19,3 +19,8 @@ export interface CFBConference {
     name: string,
     divisionId: number
 }
+
+export interface CFBDivision {
+    id: number,
+    name: string
+}

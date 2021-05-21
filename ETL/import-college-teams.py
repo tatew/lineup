@@ -60,7 +60,7 @@ def main():
 
     server="db"
     username="lineup_user"
-    password="wj3Kh2LG9n9pL"
+    password="samplepass"
     database="lineup"
     connection = psycopg2.connect(user = username,
                                     password = password,
@@ -72,7 +72,7 @@ def main():
     print("---Importing FBS---")
     print("Importing FBS Conferences")
     cursor.executemany(
-        'INSERT INTO "CFBConferences" ("Id", "Name", "DivisonId") VALUES (%s, %s, 80)',
+        'INSERT INTO "CFBConferences" ("Id", "Name", "DivisionId") VALUES (%s, %s, 80)',
         fbsConferences
     )
 
@@ -85,7 +85,7 @@ def main():
     print("---Importing FCS---")
     print("Importing FCS Conferences")
     cursor.executemany(
-        'INSERT INTO "CFBConferences" ("Id", "Name", "DivisonId") VALUES (%s, %s, 81)',
+        'INSERT INTO "CFBConferences" ("Id", "Name", "DivisionId") VALUES (%s, %s, 81)',
         fcsConferences
     )
 

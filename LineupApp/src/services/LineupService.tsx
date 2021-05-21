@@ -1,15 +1,18 @@
 import axios from 'axios';
 import { config } from './config';
-import { Team, Sport, CFBConference } from '../interfaces/interfaces';
+import { Team, Sport, CFBConference, CFBDivision } from '../interfaces/interfaces';
 
 export const lineupService = {
     getTeamSchedule,
     getTeams,
+    getTeamsForCFBConference,
     getTeamsForUser,
     getEventsFromScheduleData,
     getEventsForUser,
     getSports,
     getTeamsForSport,
+    getCFBConferencesForDivision,
+    getCFBDivisions,
     addTeamForUser,
     removeTeamForUser
 }
@@ -62,6 +65,31 @@ async function getTeamsForUser(): Promise<Team[]> {
             const response = await axios({
                 method: 'GET',
                 url: config.apiUrl + 'lineup/users/' + user.id + '/teams',
+                headers: {
+                    'mode':'cors',
+                    'Access-Control-Allow-Origin': "*",
+                    'Authorization': 'Bearer ' + user.token
+                }
+            });
+            return response.data;
+        } catch (error) {
+            console.log(error);
+            return [];
+        }
+    } else {
+        return [];
+    }
+}
+/*========================================================*/
+async function getTeamsForCFBConference(conferenceId: number): Promise<Team[]> {
+    const userJson = sessionStorage.getItem("user");
+    if (userJson)
+    {
+        const user: any = JSON.parse(userJson);
+        try {
+            const response = await axios({
+                method: 'GET',
+                url: config.apiUrl + 'lineup/CFBConferences/' + conferenceId + '/teams',
                 headers: {
                     'mode':'cors',
                     'Access-Control-Allow-Origin': "*",
@@ -158,8 +186,54 @@ async function getTeamsForSport(sportId : number) : Promise<Team[]> {
     }
 }
 /*========================================================*/
-async function getCFBConferences() : Promise<CFBConference[]> {
-    
+async function getCFBConferencesForDivision(divisionId: number) : Promise<CFBConference[]> {
+    const userJson = sessionStorage.getItem("user");
+    if (userJson)
+    {
+        const user: any = JSON.parse(userJson);
+        try {
+            const response = await axios({
+                method: 'GET',
+                url: config.apiUrl + 'lineup/CFBDivisions/' + divisionId + '/CFBConferences',
+                headers: {
+                    'mode':'cors',
+                    'Access-Control-Allow-Origin': "*",
+                    'Authorization': 'Bearer ' + user.token
+                }
+            });
+            return response.data;
+        } catch (error) {
+            console.log(error);
+            return [];
+        }
+    } else {
+        return [];
+    }
+}
+/*========================================================*/
+async function getCFBDivisions() : Promise<CFBDivision[]> {
+    const userJson = sessionStorage.getItem("user");
+    if (userJson)
+    {
+        const user: any = JSON.parse(userJson);
+        try {
+            const response = await axios({
+                method: 'GET',
+                url: config.apiUrl + 'lineup/CFBDivisions',
+                headers: {
+                    'mode':'cors',
+                    'Access-Control-Allow-Origin': "*",
+                    'Authorization': 'Bearer ' + user.token
+                }
+            });
+            return response.data;
+        } catch (error) {
+            console.log(error);
+            return [];
+        }
+    } else {
+        return [];
+    }
 }
 /*========================================================*/
 async function addTeamForUser(team : Team) : Promise<boolean> {

@@ -10,15 +10,15 @@ sports = [
 ]
 
 divisions = [
-    (80, "FBS"),
-    (81, "FCS")
+    (80, "Division I-A (FBS)"),
+    (81, "Division I-AA (FCS)")
 ]
 
 def main():
 
     server="db"
     username="lineup_user"
-    password="wj3Kh2LG9n9pL"
+    password="samplepass"
     database="lineup"
     connection = psycopg2.connect(user = username,
                                     password = password,
