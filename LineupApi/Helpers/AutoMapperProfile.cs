@@ -22,6 +22,9 @@ namespace LineupApi.Helpers
 
             CreateMap<CFBConference, CFBConferenceDTO>();
             CreateMap<CFBConferenceDTO, CFBConference>();
+
+            CreateMap<CBBConference, CBBConferenceDTO>();
+            CreateMap<CBBConferenceDTO, CBBConference>();
         }
     }
 }

@@ -39,6 +39,14 @@ namespace LineupApi.Controllers
             return Ok(teamDTOs);
         }
 
+        [HttpGet("CBBConferences/{conferenceId}/teams")]
+        public IActionResult GetTeamsForCBBConference(int conferenceId)
+        {
+            var teams = _context.Teams.Where(t => t.CBBConferenceId == conferenceId).OrderBy(t => t.Location);
+            var teamDTOs = _mapper.Map<List<TeamDTO>>(teams);
+            return Ok(teamDTOs);
+        }
+
         [HttpGet("users/{id}/teams")]
         public IActionResult GetTeamsForUser(int id)
         {
@@ -93,6 +101,15 @@ namespace LineupApi.Controllers
             var cfbDivisionDTOs = _mapper.Map<List<CFBDivisionDTO>>(cfbDivisions);
 
             return Ok(cfbDivisionDTOs);
+        }
+
+        [HttpGet("CBBConferences")]
+        public IActionResult GetCBBConferences()
+        {
+            var cbbConferences = _context.CBBConferences.OrderBy(cbbd => cbbd.Name);
+            var cbbConferenceDTOs = _mapper.Map<List<CBBConferenceDTO>>(cbbConferences);
+
+            return Ok(cbbConferenceDTOs);
         }
 
         [HttpPost("users/{id}/teams")]

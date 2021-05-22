@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { config } from './config';
-import { Team, Sport, CFBConference, CFBDivision } from '../interfaces/interfaces';
+import { Team, Sport, CFBConference, CFBDivision, CBBConference } from '../interfaces/interfaces';
 
 export const lineupService = {
     getTeamSchedule,
     getTeams,
     getTeamsForCFBConference,
+    getTeamsForCBBConference,
     getTeamsForUser,
     getEventsFromScheduleData,
     getEventsForUser,
@@ -13,6 +14,7 @@ export const lineupService = {
     getTeamsForSport,
     getCFBConferencesForDivision,
     getCFBDivisions,
+    getCBBConferences,
     addTeamForUser,
     removeTeamForUser
 }
@@ -90,6 +92,31 @@ async function getTeamsForCFBConference(conferenceId: number): Promise<Team[]> {
             const response = await axios({
                 method: 'GET',
                 url: config.apiUrl + 'lineup/CFBConferences/' + conferenceId + '/teams',
+                headers: {
+                    'mode':'cors',
+                    'Access-Control-Allow-Origin': "*",
+                    'Authorization': 'Bearer ' + user.token
+                }
+            });
+            return response.data;
+        } catch (error) {
+            console.log(error);
+            return [];
+        }
+    } else {
+        return [];
+    }
+}
+/*========================================================*/
+async function getTeamsForCBBConference(conferenceId: number): Promise<Team[]> {
+    const userJson = sessionStorage.getItem("user");
+    if (userJson)
+    {
+        const user: any = JSON.parse(userJson);
+        try {
+            const response = await axios({
+                method: 'GET',
+                url: config.apiUrl + 'lineup/CBBConferences/' + conferenceId + '/teams',
                 headers: {
                     'mode':'cors',
                     'Access-Control-Allow-Origin': "*",
@@ -220,6 +247,31 @@ async function getCFBDivisions() : Promise<CFBDivision[]> {
             const response = await axios({
                 method: 'GET',
                 url: config.apiUrl + 'lineup/CFBDivisions',
+                headers: {
+                    'mode':'cors',
+                    'Access-Control-Allow-Origin': "*",
+                    'Authorization': 'Bearer ' + user.token
+                }
+            });
+            return response.data;
+        } catch (error) {
+            console.log(error);
+            return [];
+        }
+    } else {
+        return [];
+    }
+}
+/*========================================================*/
+async function getCBBConferences() : Promise<CBBConference[]> {
+    const userJson = sessionStorage.getItem("user");
+    if (userJson)
+    {
+        const user: any = JSON.parse(userJson);
+        try {
+            const response = await axios({
+                method: 'GET',
+                url: config.apiUrl + 'lineup/CBBConferences',
                 headers: {
                     'mode':'cors',
                     'Access-Control-Allow-Origin': "*",

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CFBConference, CFBDivision, Sport, Team } from '../interfaces/interfaces';
+import { CBBConference, CFBConference, CFBDivision, Sport, Team } from '../interfaces/interfaces';
 import {lineupService} from '../services/LineupService';
 import { Dropdown } from 'primereact/dropdown';
 import { Button } from 'primereact/button';
@@ -24,6 +24,9 @@ interface State {
     showCFBConferences: boolean,
     cfbConferences: CFBConference[],
     selectedCFBConference: CFBConference,
+    showCBBConfereneces: boolean,
+    cbbConferences: CBBConference[],
+    selectedCBBConference: CBBConference
 }
 
 export class AddTeam extends Component<Props, State> {
@@ -43,7 +46,10 @@ export class AddTeam extends Component<Props, State> {
             selectedCFBDivision: null,
             showCFBConferences: false,
             cfbConferences: [],
-            selectedCFBConference: null
+            selectedCFBConference: null,
+            showCBBConfereneces: false,
+            cbbConferences: [],
+            selectedCBBConference: null
         }
     }
 
@@ -58,9 +64,13 @@ export class AddTeam extends Component<Props, State> {
         this.setState({
             selectedSport: sport.value,
             selectedTeam: null,
+            selectedCBBConference: null,
+            selectedCFBDivision: null,
+            selectedCFBConference: null,
             showTeams: false,
             showCFBDivisions: false,
-            showCFBConferences: false
+            showCFBConferences: false,
+            showCBBConfereneces: false
         });
 
         if (sport.value.name === "CFB") {
@@ -69,6 +79,13 @@ export class AddTeam extends Component<Props, State> {
                 teamDropdownDisplaySetting: "location",
                 cfbDivisions: cfbDivisions,
                 showCFBDivisions: true
+            });
+        } else if (sport.value.name === "CBB") {
+            const cbbConferences = await lineupService.getCBBConferences();
+            this.setState({
+                teamDropdownDisplaySetting: "location",
+                cbbConferences: cbbConferences,
+                showCBBConfereneces: true
             });
         } else {
             const teams = await lineupService.getTeamsForSport(sport.value.id);
@@ -103,6 +120,21 @@ export class AddTeam extends Component<Props, State> {
         });
 
         const teams = await lineupService.getTeamsForCFBConference(conference.value.id);
+        const avaliableTeams = teams.filter(e => !this.teamsIncludes(this.props.usersTeams, e));
+        this.setState({
+            teams: avaliableTeams,
+            showTeams: true
+        });
+    }
+
+    handleCBBConferenceChange = async (conference: any) => {
+        this.setState({
+            selectedCBBConference: conference.value,
+            showTeams: true,
+            selectedTeam: null
+        });
+
+        const teams = await lineupService.getTeamsForCBBConference(conference.value.id);
         const avaliableTeams = teams.filter(e => !this.teamsIncludes(this.props.usersTeams, e));
         this.setState({
             teams: avaliableTeams,
@@ -155,6 +187,15 @@ export class AddTeam extends Component<Props, State> {
                         value={this.state.selectedCFBConference} 
                         options={this.state.cfbConferences} 
                         onChange={this.handleCFBConferenceChange}
+                        placeholder="Choose a Conference"/>
+                }
+                {this.state.showCBBConfereneces &&
+                    <Dropdown className="p-mb-2 p-text-left"
+                        style={{width: "200px"}}
+                        optionLabel="name" 
+                        value={this.state.selectedCBBConference} 
+                        options={this.state.cbbConferences} 
+                        onChange={this.handleCBBConferenceChange}
                         placeholder="Choose a Conference"/>
                 }
                 {this.state.showTeams &&
