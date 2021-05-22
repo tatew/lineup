@@ -53,7 +53,7 @@ def importTeams(groupId, cursor, name):
 
         cursor.execute(
             'INSERT INTO "Teams" ("Name", "Abbreviation", "Location", "SportId", "CBBConferenceId", "LogoUrl") VALUES (%s, %s, %s, %s, %s, %s)',
-            [team["name"], team["abbreviation"].lower(), team["location"], "4", f"{groupId}", logo]
+            [team["name"], team["abbreviation"].lower(), team["location"], "6", f"{groupId}", logo]
         )
         teamsImported += 1
     
