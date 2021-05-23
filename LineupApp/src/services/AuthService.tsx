@@ -7,7 +7,7 @@ export const authService = {
     isAuth
 };
 
-async function login(email: string, password: string): Promise<boolean> {
+async function login(username: string, password: string): Promise<boolean> {
     try {
         const response = await axios({
             method: 'POST',
@@ -16,7 +16,7 @@ async function login(email: string, password: string): Promise<boolean> {
                         'mode':'cors',
                         'Access-Control-Allow-Origin': "*",
                 },
-            data: JSON.stringify({ email, password }),
+            data: JSON.stringify({ username, password }),
             url: config.apiUrl + 'users/authenticate'
         });
         sessionStorage.setItem('user', JSON.stringify(response.data));

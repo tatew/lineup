@@ -16,7 +16,8 @@ export const lineupService = {
     getCFBDivisions,
     getCBBConferences,
     addTeamForUser,
-    removeTeamForUser
+    removeTeamForUser,
+    addUser
 }
 /*========================================================*/
 async function getTeamSchedule(team: Team): Promise<any> {
@@ -312,7 +313,6 @@ async function addTeamForUser(team : Team) : Promise<boolean> {
         return false;
     }
 }
-
 /*========================================================*/
 async function removeTeamForUser(id : number) {
     const userJson = sessionStorage.getItem("user");
@@ -337,4 +337,27 @@ async function removeTeamForUser(id : number) {
     } else {
         return false;
     }
+}
+/*========================================================*/
+async function addUser(username: string, password: string): Promise<number> {
+
+    try {
+        const response = await axios({
+            method: 'POST',
+            url: config.apiUrl + 'users/addUser',
+            headers: {
+                'mode':'cors',
+                'Access-Control-Allow-Origin': "*"
+            },
+            data: {
+                username: username,
+                password: password
+            }
+        });
+        return response.status;
+    } catch (error) {
+        console.log(error);
+        return error.response.status
+    }
+    
 }

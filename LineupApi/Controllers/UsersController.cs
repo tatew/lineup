@@ -9,6 +9,8 @@ using LineupApi.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
+using AutoMapper;
+
 
 
 namespace LineupApi.Controllers
@@ -18,17 +20,19 @@ namespace LineupApi.Controllers
     public class UsersController : ControllerBase
     {
         private readonly LineupContext _context;
+        private IMapper _mapper;
 
-        public UsersController(LineupContext context)
+        public UsersController(LineupContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody]UserDTO userDto)
         {
-            var user = _context.Users.FirstOrDefault(u => u.Email == userDto.Email && u.Password == userDto.Password);
+            var user = _context.Users.FirstOrDefault(u => u.Username == userDto.Username && u.Password == userDto.Password);
             
             if (user == null)
             {
@@ -49,10 +53,25 @@ namespace LineupApi.Controllers
             return Ok(new 
             {
                 user.Id,
-                user.FirstName,
-                user.LastName,
                 Token = tokenString
             });
         } 
+
+        [AllowAnonymous]
+        [HttpPost("addUser")]
+        public IActionResult AddUser([FromBody] UserDTO userDTO)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Username == userDTO.Username);
+            if (user != null)
+            {
+                return Conflict();
+            }
+
+            var newUser = _mapper.Map<User>(userDTO);
+            _context.Users.Add(newUser);
+            _context.SaveChanges();
+
+            return StatusCode(201);
+        }
     }
 }
