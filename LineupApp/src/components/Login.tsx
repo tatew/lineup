@@ -21,6 +21,34 @@ export class Login extends Component<Props, State> {
         }
     }
 
+    componentDidMount = async () => {
+
+        if (authService.isAuth()) {
+            window.location.href = "http://" + window.location.host;
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Enter") {
+                this.login();
+            }
+        });
+    }
+
+    fieldsFilled = () => {
+        return this.state.password !== "" && this.state.username !== "";
+    }
+
+    login = async () => {
+        if (this.fieldsFilled()){
+            const authed = await authService.login(this.state.username, this.state.password);
+            if (authed) {
+                window.location.href = "http://" + window.location.host;
+            } else {
+                alert("Login failed")
+            }
+        }
+    }
+
     render() {
         return (
             <div>
@@ -51,7 +79,12 @@ export class Login extends Component<Props, State> {
                             </span>
                         </div>
                         <div className="p-col p-mx-auto">
-                            {LoginButton(this.state.username, this.state.password)}
+                            <Button
+                                label="Login"
+                                icon="pi pi-sign-in"
+                                iconPos="right"
+                                onClick={this.login}
+                            />
                         </div>
                     </div>
                 </div>
@@ -59,17 +92,3 @@ export class Login extends Component<Props, State> {
         );
     }
 }
-
-const LoginButton = (username: string, password: string) => (
-    <Route render={({ history }) => (
-        <Button label={'Login'} type="submit" icon="pi pi-sign-in" iconPos="right" onClick={async () => {
-            const authed = await authService.login(username, password);
-            if (authed) {
-                history.push('/');
-            } else {
-                alert("Login failed")
-            }
-        }}/>
-        )}
-    />
-)
