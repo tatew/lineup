@@ -8,5 +8,6 @@ namespace LineupApi.DTOs
         public string Abbreviation {get; set;}
         public string SportUrl {get; set;}
         public string LogoUrl {get; set;}
+        public string SportName { get; set; }
     }
 }

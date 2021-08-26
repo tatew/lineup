@@ -61,6 +61,7 @@ namespace LineupApi.Controllers
                 teamDto.Location = userTeam.Team.Location;
                 teamDto.SportUrl = userTeam.Team.Sport.Url;
                 teamDto.LogoUrl = userTeam.Team.LogoUrl;
+                teamDto.SportName = userTeam.Team.Sport.Name;
                 teams.Add(teamDto);
             }
 

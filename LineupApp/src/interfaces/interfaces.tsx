@@ -4,7 +4,7 @@ export interface Team {
     location: string,
     abbreviation: string,
     sportUrl: string,
-    sport: string,
+    sportName: string,
     logoUrl: string
 }
 

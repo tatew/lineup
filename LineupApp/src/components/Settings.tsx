@@ -1,25 +1,29 @@
-import React, {Component} from 'react';
+import React, {ChangeEvent, Component} from 'react';
 import {lineupService} from '../services/LineupService';
 import { DataTable } from 'primereact/datatable';
 import {Column} from 'primereact/column';
-import {Team} from '../interfaces/interfaces';
+import {Team, Sport} from '../interfaces/interfaces';
 import { Route } from 'react-router-dom'
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { AddTeam } from './AddTeam';
 import { InputText } from 'primereact/inputtext';
+import { MultiSelect } from 'primereact/multiselect';
 
 interface State {
     usersTeams: Team[],
     loading: boolean,
     showAddTeam: boolean,
     showRemoveTeamFail: boolean,
-    globalFilter: string
+    globalFilter: string,
+    sports: Sport[]
+    selectedSport: Sport
 }
 
 interface Props {}
 
 export class Settings extends Component<Props, State> {
+    dt: DataTable;
 
     constructor(props: Props) {
         super(props);
@@ -29,6 +33,8 @@ export class Settings extends Component<Props, State> {
             showAddTeam: false,
             showRemoveTeamFail: false,
             globalFilter: "",
+            sports: [],
+            selectedSport: null
         };
     }
 
@@ -37,9 +43,11 @@ export class Settings extends Component<Props, State> {
             loading: true
         })
         var teams: Team[] = await lineupService.getTeamsForUser();
+        const sports = await lineupService.getSports();
         this.setState({
             usersTeams: teams,
-            loading: false
+            loading: false,
+            sports: sports
         });
     }
 
@@ -87,6 +95,11 @@ export class Settings extends Component<Props, State> {
         return <img src={rowData.logoUrl} alt={`${rowData.name}'s Logo`} width="100%" style={{maxWidth: "90px"}}/>
     }
 
+    onSportChange = (e: any) => {
+        this.dt.filter(e.value, 'sportName', 'in');
+        this.setState({selectedSport: e.value})
+    }
+
     render() {
         const header = (
             <div className="p-grid p-fluid">
@@ -111,6 +124,8 @@ export class Settings extends Component<Props, State> {
             </div>
         );
 
+        const sportFilter = <MultiSelect style={{width: "100%"}} onChange={this.onSportChange} value={this.state.selectedSport} options={this.state.sports} optionLabel="name" optionValue="name" placeholder="ALL"/>
+
         return(
             <div>
                 <h3>Settings</h3>
@@ -127,11 +142,13 @@ export class Settings extends Component<Props, State> {
                         header={header} 
                         loading={this.state.loading}
                         globalFilter={this.state.globalFilter} emptyMessage="No records found"
-                        sortMode="multiple">
-                    <Column body={this.deleteTemplate} header="Remove" style={{textAlign: "left", width: "10%", maxWidth: "100px"}}/>
+                        sortMode="multiple"
+                        ref={(el) => this.dt = el}>
+                    <Column field="sportName" header="Sport" style={{width: "13%"}} sortable filter filterElement={sportFilter}/>        
                     <Column body={this.logoTemplate} header="Logo" style={{width: "13%"}}/>
                     <Column field="location" header="Location" sortable/>
                     <Column field="name" header="Name" sortable/>
+                    <Column body={this.deleteTemplate} header="Remove" style={{textAlign: "left", width: "10%", maxWidth: "100px"}}/>
                 </DataTable>
             </div>
         );

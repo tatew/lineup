@@ -40,6 +40,14 @@ export class AddUser extends Component<Props, State> {
         }
     }
 
+    componentDidMount = () => {
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Enter") {
+                this.handleConfirm();
+            }
+        });
+    }
+
     validate = (): boolean => {
         let errorMsgs: string[] = [];
         let valid: boolean = true;
@@ -54,6 +62,7 @@ export class AddUser extends Component<Props, State> {
         if (this.state.password !== this.state.password2) {
             errorMsgs.push("Passwords do not match");
             valid = false;
+            this.setState({password2: ""})
         }
         this.setState({
             validationError: !valid,
@@ -104,7 +113,7 @@ export class AddUser extends Component<Props, State> {
         const userAlreadyExistsFooter = (
             <div>
                 <Button label="Go to Login" icon="pi pi-sign-in" iconPos="right" onClick={() => window.location.href = "http://" + window.location.host}/>
-                <Button className="p-button-secondary" icon="pi pi-user-edit" iconPos="right" label="Change username" onClick={() => this.setState({alreadyExists: false})}/>
+                <Button className="p-button-secondary" icon="pi pi-user-edit" iconPos="right" label="Change username" onClick={() => this.setState({alreadyExists: false, username: ""})}/>
             </div>
         );
         
