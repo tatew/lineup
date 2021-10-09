@@ -19,6 +19,8 @@ services:
         labels:
             - "traefik.http.routers.api.rule=PathPrefix(`/api/`)"
             - "traefik.http.services.api.loadbalancer.server.port=5000"
+        env_file: 
+            - app.env
     reverse-proxy:
         image: traefik:2.2
         command: --providers.docker --api.insecure=true

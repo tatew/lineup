@@ -1,7 +1,7 @@
 - id: migrate
   cmd:
     - docker-compose stop api
-    - docker-compose run --rm api dotnet ef --project LineupApi.csproj database update
+    - docker-compose run --rm api dotnet ef --project LineupApi.csproj database update -v
     - docker-compose start api
 - id: makemigration
   cmd: 

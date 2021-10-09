@@ -2,3 +2,4 @@
 ./LineupApi/bin
 ./LineupApi/obj
 packages-microsoft-prod.deb
+app.env
